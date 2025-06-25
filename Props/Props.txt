@@ -1,0 +1,63 @@
+You can pass props in the following ways:
+
+1. Passing Primitive Values:
+You can pass basic data types (strings, numbers, booleans) directly as props.
+<Component name="John" age={30} isLoggedIn={true} />
+In this example, name, age, and isLoggedIn are props passed as string, number, and boolean, respectively.
+
+2. Passing entire object as a prop:
+const user = { name: "John", age: 30 };
+<Component user={user} />
+The user object is passed as a single prop.
+
+3.Arrays can also be passed as props:
+const items = ["Item 1", "Item 2", "Item 3"];
+<Component items={items} />
+Here, items is an array passed as a prop.
+
+4.Functions can be passed as props to be used as event handlers or to trigger actions in the parent component.
+const handleClick = () => { console.log("Clicked!"); };
+<Component onClick={handleClick} />
+
+5.Children Prop:React has a special prop called children, which allows you to pass content between the opening and closing tags of a component.
+<Component>
+  <p>This is a child element</p>
+</Component>
+
+6.Spread Operator:You can use the spread operator to pass all properties of an object as props.
+const props = { name: "John", age: 30 };
+<Component {...props} />
+
+
+========================================================================================================================
+
+Component Props: When you render a React component, you pass props to it. These props are then used within the component.
+// Greeting.js
+const Greeting = ({ name }) => {
+  return <p>Hello, {name}!</p>;
+};
+
+export default Greeting;
+
+// App.js
+import React from 'react';
+import Greeting from './Greeting'; // Importing the Greeting component
+
+const App = () => {
+  return (
+    <div>
+      <h1>Welcome to My App</h1>
+      <Greeting name="Alice" /> {/* Passing 'Alice' as a prop to the child component*/}
+      <Greeting name="Bob" />   {/* Passing 'Bob' as a prop to the child component*/}
+    </div>
+  );
+};
+
+export default App;
+
+===================================================================================================================
+
+const Greeting = (props) => {
+  return <p>Hello, {props.name}!</p>;
+};
+<Greeting name="Alice" />

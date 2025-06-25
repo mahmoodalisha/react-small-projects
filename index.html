@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Registration Form</title>
+    
+</head>
+
+<body>
+    <h1>REGISTRATION FORM</h1>
+
+    <form name="registration" method="post" onsubmit="return validateForm();">
+        <label for="username">USERNAME:</label>
+        <input type="text" name="username" id="username">
+        <br>
+
+        <label for="name1">NAME:</label>
+        <input type="text" name="name1" id="name1">
+        <br>
+
+        <label for="passwd">PASSWORD:</label>
+        <input type="password" name="passwd" id="passwd">
+        <br>
+
+        <label for="conpasswd">CONFIRM PASSWORD:</label>
+        <input type="password" name="conpasswd" id="conpasswd">
+        <br>
+
+        <label for="email">EMAIL:</label>
+        <input type="email" name="email" id="email">
+        <br>
+
+        <label for="address">ADDRESS:</label>
+        <input type="text" name="address" id="address">
+        <br>
+
+        <label for="zipcode">ZIP CODE:</label>
+        <input type="text" name="zipcode" id="zipcode">
+        <br>
+
+        <div class="buttons">
+            <input type="submit" name="submit" value="Submit">
+            <input type="reset" name="reset" value="Reset">
+        </div>
+    </form>
+
+    <script>
+        function validateForm(){
+            // Retrieve form elements
+            var form = document.registration;
+            var username = form.username.value.trim();
+            var name1 = form.name1.value.trim();
+            var passwd = form.passwd.value.trim();
+            var conpasswd = form.conpasswd.value.trim();
+            var email = form.email.value.trim();
+            var address = form.address.value.trim();
+            var zipcode = form.zipcode.value.trim();
+
+            // Regular expressions for validation
+            var letters = /^[A-Za-z]+$/;
+            var digits = /^[0-9]+$/;
+            var alphanum = /^[0-9A-Za-z ,]+$/;
+            var emailFormat = /^[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            // Check for empty fields
+            if(username === ""){
+                alert("USERNAME cannot be empty");
+                form.username.focus();
+                return false;
+            }
+
+            if(name1 === ""){
+                alert("NAME cannot be empty");
+                form.name1.focus();
+                return false;
+            }
+
+            if(passwd === ""){
+                alert("PASSWORD cannot be empty");
+                form.passwd.focus();
+                return false;
+            }
+
+            if(conpasswd === ""){
+                alert("CONFIRM PASSWORD cannot be empty");
+                form.conpasswd.focus();
+                return false;
+            }
+
+            if(email === ""){
+                alert("EMAIL cannot be empty");
+                form.email.focus();
+                return false;
+            }
+
+            if(address === ""){
+                alert("ADDRESS cannot be empty");
+                form.address.focus();
+                return false;
+            }
+
+            if(zipcode === ""){
+                alert("ZIP CODE cannot be empty");
+                form.zipcode.focus();
+                return false;
+            }
+
+            // Validate username length
+            if(username.length < 5 || username.length > 12){
+                alert("USER ID SHOULD BE 5 TO 12 CHARACTERS LONG");
+                form.username.focus();
+                return false;
+            }
+
+            // Validate name contains only letters
+            if(!letters.test(name1)){
+                alert("NAME WILL CONTAIN ONLY LETTERS!");
+                form.name1.focus();
+                return false;
+            }
+
+            // Validate password match
+            if(passwd !== conpasswd){
+                alert("PASSWORDS DO NOT MATCH!");
+                form.conpasswd.focus();
+                return false;
+            }
+
+            // Validate email format
+            if(!emailFormat.test(email)){
+                alert("EMAIL IS NOT VALID!");
+                form.email.focus();
+                return false;
+            }
+
+            // Validate address alphanumeric
+            if(!alphanum.test(address)){
+                alert("ADDRESS WILL CONTAIN ONLY ALPHANUMERIC CHARACTERS, COMMA, AND SPACE!");
+                form.address.focus();
+                return false;
+            }
+
+            // Validate ZIP code contains only digits
+            if(!digits.test(zipcode)){
+                alert("ZIP CODE MUST CONTAIN ONLY DIGITS!");
+                form.zipcode.focus();
+                return false;
+            }
+
+            // All validations passed
+            return true;
+        }
+    </script>
+</body>
+</html>
