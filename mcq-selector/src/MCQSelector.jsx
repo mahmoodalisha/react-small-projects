@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const questions = [
   {
@@ -9,7 +8,7 @@ const questions = [
   },
   {
     id: 2,
-    question: "What is the formula for Suphuric Acid?",
+    question: "What is the formula for Sulphuric Acid?",
     options: ["H2O", "HCL", "CaCO3", "H2SO4"],
   },
   {
@@ -59,26 +58,27 @@ const questions = [
   },
 ];
 
-function MCQSelector() {
+const MCQSelector = () => {
   const [answers, setAnswers] = useState({});
 
-  function handleChange(questionId, selectedOption) {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: selectedOption,
-    }));
-  }
+  const handleOptionClick = (questionId, selectedOption) => {
+    setAnswers((prevAnswers) => {
+      const updatedAnswers = { ...prevAnswers };
 
-  function handleSubmit(event) {
+      if (updatedAnswers[questionId] === selectedOption) {
+        delete updatedAnswers[questionId];
+      } else {
+        updatedAnswers[questionId] = selectedOption;
+      }
+
+      return updatedAnswers;
+    });
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (Object.keys(answers).length !== questions.length) {
-      alert("Please answer all the questions.");
-      return;
-    }
-
     console.log("Selected answers:", answers);
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -90,21 +90,23 @@ function MCQSelector() {
             {question.id}. {question.question}
           </h3>
 
-          {question.options.map((option) => (
-            <label key={option}>
-              <input
-                type="radio"
-                name={`question-${question.id}`}
-                value={option}
-                checked={answers[question.id] === option}
-                onChange={() =>
-                  handleChange(question.id, option)
-                }
-              />
-              {option}
-              <br />
-            </label>
-          ))}
+          {question.options.map((option) => {
+            const isChecked = answers[question.id] === option;
+
+            return (
+              <label key={option}>
+                <input
+                  type="radio"
+                  name={`question-${question.id}`}
+                  checked={isChecked}
+                  onClick={() => handleOptionClick(question.id, option)}
+                  onChange={() => {}}
+                />
+                {option}
+                <br />
+              </label>
+            );
+          })}
 
           <br />
         </div>
@@ -113,6 +115,6 @@ function MCQSelector() {
       <button type="submit">Submit Answers</button>
     </form>
   );
-}
+};
 
 export default MCQSelector;
