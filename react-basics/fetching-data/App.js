@@ -15,4 +15,3 @@ function App() {
     ) //if data is there then render it using loop if not then no data is found
 }
 export default App;
-
